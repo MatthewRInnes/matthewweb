@@ -1,0 +1,35 @@
+/**
+ * Base TypeScript Configuration
+ * 
+ * This is the root TypeScript configuration file that defines the base settings
+ * for the entire project. It includes:
+ * - Project references to app and node configurations
+ * - Path aliases for module resolution
+ * - Type checking and compiler options
+ */
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    // Base URL for resolving non-relative module names
+    "baseUrl": ".",
+    // Path aliases for cleaner imports
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    // Enable strict type checking for better type safety
+    "strict": true,
+    // Allow JavaScript files to be compiled
+    "allowJs": true,
+    // Skip type checking of declaration files
+    "skipLibCheck": true,
+    // Disable specific strict checks for development flexibility
+    "noImplicitAny": false,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "strictNullChecks": false
+  }
+}

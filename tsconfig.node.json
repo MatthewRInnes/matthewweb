@@ -1,0 +1,27 @@
+/**
+ * Node-specific TypeScript Configuration
+ * 
+ * This configuration file defines TypeScript settings specifically for Node.js
+ * environment and build tools. It includes:
+ * - Module resolution for Node.js
+ * - Build tool configurations
+ * - Vite configuration file type checking
+ */
+{
+  "compilerOptions": {
+    // Enable project references for TypeScript project structure
+    "composite": true,
+    // Skip type checking of declaration files
+    "skipLibCheck": true,
+    // Use modern ECMAScript modules
+    "module": "ESNext",
+    // Configure module resolution for bundler
+    "moduleResolution": "bundler",
+    // Allow default imports from modules with no default export
+    "allowSyntheticDefaultImports": true,
+    // Enable strict type checking
+    "strict": true
+  },
+  // Include Vite configuration file for type checking
+  "include": ["vite.config.ts"]
+}

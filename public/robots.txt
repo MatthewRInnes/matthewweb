@@ -1,0 +1,46 @@
+# Global rules
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*?*
+
+# Google specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
+
+# Bing specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
+
+# Social media crawlers
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://matthewweb.com/sitemap.xml
+
+# Host directive
+Host: matthewweb.com
