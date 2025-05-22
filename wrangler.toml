@@ -1,3 +1,17 @@
+# Cloudflare Pages configuration
 name = "matthewweb"
-compatibility_date = "2024-01-01"
-pages_build_output_dir = "dist" 
+compatibility_date = "2024-03-20"
+
+[build]
+command = "npm run build"
+output_directory = "dist"
+
+[site]
+bucket = "./dist"
+
+[env.production]
+workers_dev = false
+route = "matthewweb.com/*"
+
+[env.production.vars]
+NODE_ENV = "production" 
