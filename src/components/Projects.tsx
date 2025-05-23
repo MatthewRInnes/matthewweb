@@ -39,8 +39,9 @@ const projects = [
     description: "Savvy VAT Wizard is a smart VAT calculator for UK businesses that helps calculate VAT amounts quickly and accurately. Features include support for both standard and reduced VAT rates, multiple calculation methods (gross, net, and VAT amount), a clean and intuitive user interface, and mobile-responsive design. Built with React and TypeScript.",
     tags: ["React", "TypeScript", "VAT", "Responsive Design"],
     image: "/assets/images/vat1.png",
+    video: "/assets/videos/vat CalculatorVideo.mp4",
     liveLink: 'https://example.com',
-    githubLink: 'https://github.com/MatthewRInnes/vat-calculator',
+    githubLink: 'https://github.com/MatthewRInnes/vat-calculatorv1',
     detailsLink: '/projects/vat-calculator'
   }
 ];
