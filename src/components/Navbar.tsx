@@ -3,6 +3,7 @@ import { Menu, X, Sun, Moon, Home, Phone, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from './ThemeProvider';
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 const navItems = [
   { name: 'Home', href: '#top' },
@@ -57,17 +58,11 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header 
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2 lg:py-4', 
-        isScrolled 
-          ? 'bg-background/90 dark:bg-navy/90 backdrop-blur-md shadow-sm' 
-          : 'bg-transparent'
-      )}
-    >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
-        {/* Left side: Mobile Menu Button (always hamburger) */}
-        <div className="lg:hidden z-50">
+    // Container to align navbar with main content
+    <nav className="w-full bg-background/80 backdrop-blur-md fixed top-0 left-0 z-50 border-b border-border dark:border-slate/20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-28"> {/* Always has horizontal padding for mobile and desktop alignment */}
+        {/* Left: Hamburger menu on mobile, nav links on desktop */}
+        <div className="flex items-center lg:hidden">
           <button 
             className="text-foreground dark:text-lightSlate menu-button focus:outline-none"
             onClick={toggleMenu}
@@ -77,9 +72,7 @@ const Navbar = () => {
             <Menu size={24} />
           </button>
         </div>
-
-        {/* Desktop Navigation - Center */}
-        <div className="hidden lg:flex items-center justify-center flex-1">
+        <div className="hidden lg:flex items-center">
           <ul className="flex space-x-8">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -95,9 +88,8 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        
-        {/* Right side: Logo & Theme Toggle */}
-        <div className="flex items-center gap-4 ml-auto z-10">
+        {/* Right: Theme toggle and logo, order reversed on mobile */}
+        <div className="flex items-center gap-4 ml-auto flex-row-reverse lg:flex-row"> {/* flex-row-reverse on mobile, flex-row on desktop */}
           {/* Theme Toggle */}
           <button 
             onClick={toggleTheme}
@@ -110,11 +102,10 @@ const Navbar = () => {
               <Moon size={24} className="text-navy" />
             )}
           </button>
-
-          {/* Logo - Right side */}
+          {/* Logo - Right side, vertically centred by flex */}
           <Link 
             to="/" 
-            className="flex items-center gap-2 text-foreground dark:text-lightestSlate relative group"
+            className="flex items-center gap-2 text-foreground dark:text-lightestSlate relative group mt-2 lg:mt-0"
             onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
             {!imageError ? (
@@ -131,23 +122,22 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-      </nav>
-      {/* Mobile Menu Overlay and Backdrop */}
-      {isMenuOpen && (
-        <>
-          {/* Backdrop for outside click */}
+      </div>
+      {/* Mobile Menu Overlay and Backdrop using React Portal */}
+      {isMenuOpen && ReactDOM.createPortal(
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setIsMenuOpen(false)} // Close menu on any click outside the actual menu
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black bg-opacity-40" />
+
+          {/* Overlay - click inside won't close menu */}
           <div
-            className="fixed inset-0 bg-black bg-opacity-40 z-40"
-            onClick={() => setIsMenuOpen(false)}
-          />
-          {/* Overlay */}
-          <div
-            className={cn(
-              "fixed left-0 right-0 top-20 bg-background z-50 flex flex-col justify-center items-center transition-all duration-300 ease-in-out py-8",
-              "translate-x-0 opacity-100"
-            )}
+            className="absolute left-0 right-0 top-32 bg-background py-8 z-50"
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            onClick={e => e.stopPropagation()} // Prevent menu itself from triggering close
           >
-            {/* Close button inside overlay, top right */}
             <button
               className="absolute top-6 right-6 text-foreground dark:text-lightSlate text-3xl focus:outline-none z-50"
               onClick={toggleMenu}
@@ -156,27 +146,26 @@ const Navbar = () => {
             >
               <X size={32} />
             </button>
-            <div className="w-full flex justify-center">
-              <ul className="space-y-8 text-center">
-                {navItems.map((item, index) => (
-                  <li key={index}>
-                    <a 
-                      href={item.href}
-                      className="text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal text-2xl transition-colors duration-700 relative group flex items-center justify-center"
-                      onClick={toggleMenu}
-                    >
-                      {item.name === 'Home' && <Home size={18} className="mr-2" />}
-                      {item.name}
-                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-teal transform scale-x-0 origin-bottom transition-transform duration-700 group-hover:scale-x-100" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="space-y-8 text-center">
+              {navItems.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.href}
+                    className="text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal text-2xl transition-colors duration-700 relative group flex items-center justify-center"
+                    onClick={toggleMenu}
+                  >
+                    {item.name === 'Home' && <Home size={18} className="mr-2" />}
+                    {item.name}
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-teal transform scale-x-0 origin-bottom transition-transform duration-700 group-hover:scale-x-100" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </>
+        </div>,
+        document.body
       )}
-    </header>
+    </nav>
   );
 };
 
