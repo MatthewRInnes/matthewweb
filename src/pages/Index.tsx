@@ -30,7 +30,7 @@ const Index = () => {
     <ThemeProvider>
       <div className="min-h-screen flex flex-col bg-background text-foreground dark:bg-navy dark:text-lightSlate">
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow pt-24">
           <div {...heroRef}><Hero /></div>
           <div {...statsRef}><Stats /></div>
           <div {...aboutRef}><About /></div>
