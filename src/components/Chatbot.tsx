@@ -305,7 +305,7 @@ export default function Chatbot() {
                         : 'bg-secondary dark:bg-navy/60 text-foreground dark:text-lightSlate'
                     }`}
                   >
-                    <p className="whitespace-pre-line break-words break-all">{message.text}</p>
+                    <p className="whitespace-pre-line break-words break-all" dangerouslySetInnerHTML={{ __html: message.text }} />
                     {message.options && message.sender === 'bot' && (
                       <div className="mt-2 flex flex-wrap gap-2">
                         {message.options.map((option, index) => (
