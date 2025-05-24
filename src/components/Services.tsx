@@ -215,22 +215,32 @@ const Services = () => {
 
   // Effect hook for fetching service-related images
   useEffect(() => {
-    // Use local images instead of fetching from Pexels
-    const localImages = services.map(service => {
-      // Map service titles to image paths
-      const imageMap: { [key: string]: string } = {
-        'Motion Graphics': '/assets/images/services/motion-graphics.jpg',
-        'Information Graphics': '/assets/images/services/information-graphics.jpg',
-        'Audio Branding': '/assets/images/services/audio-branding.jpg',
-        'Training & Workshops': '/assets/images/services/training-workshops.jpg',
-        // Add more mappings as needed
-      };
-      
-      return imageMap[service.title] || '/assets/images/services/default-service.jpg';
-    });
-    
-    setImages(localImages);
-    setLoading(false);
+    const fetchImages = async () => {
+      try {
+        const imagePromises = services.map(async (service) => {
+          const response = await fetch(
+            `https://api.pexels.com/v1/search?query=${encodeURIComponent(service.query)}&per_page=1`,
+            {
+              headers: {
+                'Authorization': 'Kop4YidFnPTJp3Tr92KXh6uz0wcWctYxqQ7df3FjUgsjrzaup7nLyWaI'
+              }
+            }
+          );
+          const data = await response.json();
+          return data.photos[0]?.src.medium || defaultImages[0];
+        });
+
+        const fetchedImages = await Promise.all(imagePromises);
+        setImages(fetchedImages);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+        setImages(defaultImages);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
   }, []);
 
   // Fallback images for when API calls fail
