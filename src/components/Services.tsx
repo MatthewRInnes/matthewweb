@@ -218,22 +218,36 @@ const Services = () => {
     const fetchImages = async () => {
       try {
         const imagePromises = services.map(async (service) => {
-          const response = await fetch(
-            `https://api.pexels.com/v1/search?query=${encodeURIComponent(service.query)}&per_page=1`,
-            {
-              headers: {
-                'Authorization': 'Kop4YidFnPTJp3Tr92KXh6uz0wcWctYxqQ7df3FjUgsjrzaup7nLyWaI'
+          try {
+            const response = await fetch(
+              `https://api.pexels.com/v1/search?query=${encodeURIComponent(service.query)}&per_page=1`,
+              {
+                headers: {
+                  'Authorization': import.meta.env.VITE_PEXELS_API_KEY || 'Kop4YidFnPTJp3Tr92KXh6uz0wcWctYxqQ7df3FjUgsjrzaup7nLyWaI'
+                }
               }
+            );
+            
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
-          );
-          const data = await response.json();
-          return data.photos[0]?.src.medium || defaultImages[0];
+            
+            const data = await response.json();
+            if (!data.photos || data.photos.length === 0) {
+              throw new Error('No photos found');
+            }
+            
+            return data.photos[0]?.src.medium || defaultImages[0];
+          } catch (error) {
+            console.error(`Error fetching image for ${service.title}:`, error);
+            return defaultImages[0];
+          }
         });
 
         const fetchedImages = await Promise.all(imagePromises);
         setImages(fetchedImages);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        console.error('Error in image fetching process:', error);
         setImages(defaultImages);
       } finally {
         setLoading(false);
