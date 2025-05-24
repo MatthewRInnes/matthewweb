@@ -5,4 +5,20 @@
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: cross-origin
+
+/assets/*
+  Content-Type: application/javascript
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+
+/*.js
+  Content-Type: application/javascript
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
 */ 
