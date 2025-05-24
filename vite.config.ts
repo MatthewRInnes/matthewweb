@@ -18,6 +18,14 @@ export default defineConfig({
     host: "::",
     // Set the development server port
     port: 8080,
+    // Enable CORS
+    cors: true,
+    // Add security headers
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'cross-origin',
+    },
   },
   // Enable React plugin for JSX support
   plugins: [react()],
@@ -40,9 +48,9 @@ export default defineConfig({
         main: path.resolve(__dirname, 'index.html'),
       },
       output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom'],
         },

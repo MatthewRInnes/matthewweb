@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Security headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; connect-src 'self'; img-src 'self' data: https://images.unsplash.com https://images.pexels.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://*.cloudflare.com; connect-src 'self'; img-src 'self' data: https://images.unsplash.com https://images.pexels.com;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload" />
@@ -50,6 +50,10 @@
     <link rel="alternate icon" type="image/png" href="/assets/images/mattLogo.png" />
     <meta name="theme-color" content="#0EA5E9" />
 
+    <!-- Preload main assets -->
+    <link rel="modulepreload" href="/assets/index.js" as="script" type="application/javascript" />
+    <link rel="modulepreload" href="/assets/vendor.js" as="script" type="application/javascript" />
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -74,6 +78,6 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/assets/index.js"></script>
+    <script type="module" src="/assets/index.js" crossorigin="anonymous"></script>
   </body>
 </html>
