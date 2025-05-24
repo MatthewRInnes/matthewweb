@@ -88,9 +88,9 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        {/* Right: Theme toggle and logo, order reversed on mobile */}
-        <div className="flex items-center gap-4 ml-auto flex-row-reverse lg:flex-row"> {/* flex-row-reverse on mobile, flex-row on desktop */}
-          {/* Logo - Right side, vertically centred by flex */}
+        {/* Right: Theme toggle and logo */}
+        <div className="flex items-center gap-4 ml-auto relative"> {/* Added relative positioning */}
+          {/* Logo */}
           <Link 
             to="/" 
             className="flex items-center gap-2 text-foreground dark:text-lightestSlate relative group mt-2 lg:mt-0"
@@ -112,7 +112,7 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button 
             onClick={toggleTheme}
-            className="p-3 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md -ml-6 lg:ml-0"
+            className="p-3 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md absolute right-[calc(100%+25px)] top-1/2 -translate-y-1/2"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? (
