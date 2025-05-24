@@ -62,7 +62,7 @@ const Navbar = () => {
     <nav className="w-full bg-background/80 backdrop-blur-md fixed top-0 left-0 z-50 border-b border-border dark:border-slate/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-28"> {/* Always has horizontal padding for mobile and desktop alignment */}
         {/* Left: Hamburger menu on mobile, nav links on desktop */}
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center xl:hidden">
           <button 
             className="text-foreground dark:text-lightSlate menu-button focus:outline-none"
             onClick={toggleMenu}
@@ -72,7 +72,7 @@ const Navbar = () => {
             <Menu size={24} />
           </button>
         </div>
-        <div className="hidden lg:flex items-center">
+        <div className="hidden xl:flex items-center">
           <ul className="flex space-x-8">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -93,18 +93,18 @@ const Navbar = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-2 text-foreground dark:text-lightestSlate relative group mt-2 lg:mt-0"
+            className="flex items-center gap-2 text-foreground dark:text-lightestSlate relative group mt-2 xl:mt-0"
             onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
             {!imageError ? (
               <img 
                 src="/assets/images/logo.png"
                 alt="Matthew Innes Logo" 
-                className="h-40 w-40 lg:h-48 lg:w-48 xl:h-56 xl:w-56 hover:scale-110 transition-transform duration-300"
+                className="h-32 w-32 lg:h-40 lg:w-40 xl:h-48 xl:w-48 hover:scale-110 transition-transform duration-300"
                 onError={() => setImageError(true)}
               />
             ) : (
-              <div className="h-40 w-40 lg:h-48 lg:w-48 xl:h-56 xl:w-56 bg-gray-200 rounded-full flex items-center justify-center">
+              <div className="h-32 w-32 lg:h-40 lg:w-40 xl:h-48 xl:w-48 bg-gray-200 rounded-full flex items-center justify-center">
                 <span className="text-gray-500 text-sm">Logo</span>
               </div>
             )}
@@ -112,13 +112,13 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button 
             onClick={toggleTheme}
-            className="p-3 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md absolute right-[calc(100%+5px)] top-1/2 -translate-y-1/2"
+            className="p-2.5 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md absolute right-[calc(100%+5px)] top-1/2 -translate-y-1/2"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? (
-              <Sun size={24} className="text-teal" />
+              <Sun size={20} className="text-teal" />
             ) : (
-              <Moon size={24} className="text-navy" />
+              <Moon size={20} className="text-navy" />
             )}
           </button>
         </div>
