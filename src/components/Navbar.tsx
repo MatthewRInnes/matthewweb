@@ -90,18 +90,6 @@ const Navbar = () => {
         </div>
         {/* Right: Theme toggle and logo, order reversed on mobile */}
         <div className="flex items-center gap-4 ml-auto flex-row-reverse lg:flex-row"> {/* flex-row-reverse on mobile, flex-row on desktop */}
-          {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme}
-            className="p-3 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md"
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? (
-              <Sun size={24} className="text-teal" />
-            ) : (
-              <Moon size={24} className="text-navy" />
-            )}
-          </button>
           {/* Logo - Right side, vertically centred by flex */}
           <Link 
             to="/" 
@@ -121,6 +109,18 @@ const Navbar = () => {
               </div>
             )}
           </Link>
+          {/* Theme Toggle */}
+          <button 
+            onClick={toggleTheme}
+            className="p-3 rounded-full bg-secondary hover:bg-accent/20 dark:bg-navy/80 dark:hover:bg-teal/20 transition-colors duration-300 shadow-md ml-4"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun size={24} className="text-teal" />
+            ) : (
+              <Moon size={24} className="text-navy" />
+            )}
+          </button>
         </div>
       </div>
       {/* Mobile Menu Overlay and Backdrop using React Portal */}
