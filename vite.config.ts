@@ -15,7 +15,7 @@ export default defineConfig({
   // Development server configuration
   server: {
     // Allow connections from any IP address
-    host: true,
+    host: "::",
     // Set the development server port
     port: 8080,
     // Enable CORS
