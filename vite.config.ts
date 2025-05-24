@@ -10,6 +10,8 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Base URL for production
+  base: '/',
   // Development server configuration
   server: {
     // Allow connections from any IP address
@@ -25,6 +27,19 @@ export default defineConfig({
     alias: {
       // Map '@' to the src directory
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  // Build configuration
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        },
+      },
     },
   },
 });
