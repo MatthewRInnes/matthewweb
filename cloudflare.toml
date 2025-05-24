@@ -1,0 +1,20 @@
+[build]
+command = "npm run build"
+output_directory = "dist"
+
+[build.environment]
+NODE_VERSION = "18.18.0"
+NPM_VERSION = "9.8.1"
+
+[site]
+bucket = "./dist"
+entry-point = "."
+
+[env.production]
+name = "matthewweb-com"
+workers_dev = true
+route = "matthewweb.com/*"
+zone_id = "your-zone-id"
+
+[env.production.vars]
+ENVIRONMENT = "production" 

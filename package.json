@@ -11,6 +11,10 @@
     "preview": "vite preview",
     "optimise-images": "node scripts/optimise-images.js"
   },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=9.8.1"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
