@@ -46,6 +46,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    // Enable proper source maps
     sourcemap: true,
     minify: 'terser',
     // Ensure proper chunking and loading
@@ -64,8 +65,6 @@ export default defineConfig({
     },
     // Ensure proper chunk size
     chunkSizeWarningLimit: 1000,
-    // Enable proper source maps
-    sourcemap: true,
   },
   // Optimize dependencies
   optimizeDeps: {
