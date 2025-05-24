@@ -215,37 +215,22 @@ const Services = () => {
 
   // Effect hook for fetching service-related images
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const imagePromises = services.map(service => {
-          const query = encodeURIComponent(service.query);
-          // Fetch 5 images and pick one at random for more variety
-          return fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=5`, {
-            headers: {
-              'Authorization': import.meta.env.VITE_PEXELS_API_KEY
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.photos && data.photos.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.photos.length);
-              return data.photos[randomIndex].src.large;
-            }
-            return null;
-          })
-          .catch(() => null);
-        });
-
-        const results = await Promise.all(imagePromises);
-        setImages(results);
-      } catch (error) {
-        console.error('Error fetching images:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchImages();
+    // Use local images instead of fetching from Pexels
+    const localImages = services.map(service => {
+      // Map service titles to image paths
+      const imageMap: { [key: string]: string } = {
+        'Motion Graphics': '/assets/images/services/motion-graphics.jpg',
+        'Information Graphics': '/assets/images/services/information-graphics.jpg',
+        'Audio Branding': '/assets/images/services/audio-branding.jpg',
+        'Training & Workshops': '/assets/images/services/training-workshops.jpg',
+        // Add more mappings as needed
+      };
+      
+      return imageMap[service.title] || '/assets/images/services/default-service.jpg';
+    });
+    
+    setImages(localImages);
+    setLoading(false);
   }, []);
 
   // Fallback images for when API calls fail
