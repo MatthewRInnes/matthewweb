@@ -15,7 +15,7 @@ export default defineConfig({
   // Development server configuration
   server: {
     // Allow connections from any IP address
-    host: "::",
+    host: true,
     // Set the development server port
     port: 8080,
     // Enable CORS
@@ -26,6 +26,10 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'cross-origin',
       'Content-Type': 'application/javascript',
+    },
+    // Enable HMR (Hot Module Replacement)
+    hmr: {
+      overlay: true,
     },
   },
   // Enable React plugin for JSX support
