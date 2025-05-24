@@ -1,6 +1,5 @@
 # Cloudflare Pages configuration for matthewweb.com
 name = "matthewweb"
-compatibility_date = "2024-03-20"
 
 [build]
 command = "npm run build"
