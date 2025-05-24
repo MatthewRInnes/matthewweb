@@ -48,6 +48,7 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: true,
     minify: 'terser',
+    // Ensure proper chunking and loading
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
@@ -61,6 +62,10 @@ export default defineConfig({
         },
       },
     },
+    // Ensure proper chunk size
+    chunkSizeWarningLimit: 1000,
+    // Enable proper source maps
+    sourcemap: true,
   },
   // Optimize dependencies
   optimizeDeps: {

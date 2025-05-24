@@ -1,0 +1,22 @@
+[build]
+command = "npm run build"
+publish = "dist"
+
+[build.environment]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+
+[site]
+bucket = "dist"
+entry-point = "."
+
+[functions]
+directory = "functions"
+node_compat = true
+
+[env.production]
+name = "matthewweb.com"
+workers_dev = false
+
+[env.production.vars]
+ENVIRONMENT = "production" 
