@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -35,24 +36,20 @@ const Contact = () => {
         throw new Error("Please enter a valid email address");
       }
       
-      // Send the form data
-      const response = await fetch("https://formsubmit.co/aideveloper@matthewweb.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `Portfolio Contact: Message from ${formData.name}`,
-        }),
-      });
-      
-      if (!response.ok) {
-        throw new Error("Something went wrong. Please try again later.");
-      }
+      // Send the form data using EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Matthew Innes',
+      };
+
+      await emailjs.send(
+        'service_matthewweb',
+        'template_matthewweb',
+        templateParams,
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
       
       toast({
         title: "Message sent!",
