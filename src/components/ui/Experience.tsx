@@ -112,60 +112,46 @@ const SkillProgress = ({ skill, isVisible, delay }) => {
   const [progress, setProgress] = useState(0);
   // State for the animated number
   const [displayed, setDisplayed] = useState(0);
-  // State to trigger bounce effect
-  const [bounce, setBounce] = useState(false);
+  // Track if the animation has already run
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     let timeout;
     let numberTimeout;
-    if (!isVisible) {
-      setProgress(0);
-      setDisplayed(0);
-      setBounce(false);
-      return;
-    }
-    if (isVisible) {
+    // Only animate if visible and not already animated
+    if (isVisible && !hasAnimated) {
       timeout = setTimeout(() => {
-        // Animate the progress bar value
-        const incrementProgress = () => {
+        // Animate the progress bar value slowly and smoothly
+        const animateProgress = () => {
           setProgress(prev => {
-            const nextValue = prev + 1;
-            if (nextValue >= skill.value) {
-              setBounce(true); // Trigger bounce at the end
+            if (prev >= skill.value) {
+              setHasAnimated(true); // Mark as animated
               return skill.value;
             }
-            setTimeout(incrementProgress, 12); // Fast fill for a modern feel
-            return nextValue;
+            requestAnimationFrame(animateProgress);
+            return prev + 1;
           });
         };
-        incrementProgress();
+        animateProgress();
       }, delay);
       // Animate the number counting up in sync with the bar
       numberTimeout = setTimeout(() => {
-        const incrementNumber = () => {
+        const animateNumber = () => {
           setDisplayed(prev => {
-            const next = prev + 1;
-            if (next >= skill.value) return skill.value;
-            setTimeout(incrementNumber, 18); // Slightly slower for a smooth effect
-            return next;
+            if (prev >= skill.value) return skill.value;
+            requestAnimationFrame(animateNumber);
+            return prev + 1;
           });
         };
-        incrementNumber();
+        animateNumber();
       }, delay);
     }
+    // Do not reset progress if not visible
     return () => {
       clearTimeout(timeout);
       clearTimeout(numberTimeout);
     };
-  }, [isVisible, skill.value, delay]);
-
-  // Reset bounce after animation
-  useEffect(() => {
-    if (bounce) {
-      const bounceTimeout = setTimeout(() => setBounce(false), 400);
-      return () => clearTimeout(bounceTimeout);
-    }
-  }, [bounce]);
+  }, [isVisible, skill.value, delay, hasAnimated]);
 
   return (
     <div className="mb-3">
@@ -174,8 +160,8 @@ const SkillProgress = ({ skill, isVisible, delay }) => {
         {/* Animated number counting up */}
         <span className="text-sm font-semibold text-accent dark:text-teal transition-all duration-300">{displayed}%</span>
       </div>
-      {/* Progress bar with bounce effect at the end */}
-      <div className={`transition-transform duration-300 ${bounce ? 'scale-105' : ''}`}>
+      {/* Simple progress bar with no bounce or scale animation */}
+      <div>
         <Progress value={progress} className="h-2" />
       </div>
     </div>

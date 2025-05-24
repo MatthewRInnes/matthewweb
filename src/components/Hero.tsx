@@ -56,22 +56,22 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
           {/* Text content - takes 7 columns on md screens */}
           <div className="md:col-span-7">
-            <p className="text-gradient-teal mb-4 animate-fade-in-up font-medium">Hello! I'm</p>
+            <p className="text-gradient-teal mb-4 animate-fade-in-up font-medium">Hi there! I'm</p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground dark:text-white mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               Matthew Innes
             </h1>
             
-            {/* Fixed solution for typing animation with stable height to prevent jumping */}
+            {/* Updated hero subtitle for a more engaging introduction */}
             <div className="mb-20 animate-fade-in-up h-24 md:h-28" style={{ animationDelay: '0.2s' }}>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-lightestSlate leading-relaxed">
-                I'm a <span className="text-gradient-teal inline-block" style={{ lineHeight: 1.5, paddingBottom: '10px' }}>{displayText}</span>
+                I craft <span className="text-gradient-teal inline-block" style={{ lineHeight: 1.5, paddingBottom: '10px' }}>{displayText}</span>
                 <span className="border-r-2 border-gradient-teal ml-1 inline-block align-text-bottom animate-pulse" style={{ height: '1em' }}></span>
               </h2>
             </div>
             
             <div className="mt-4">
               <p className="text-foreground dark:text-lightSlate max-w-xl mb-8 lg:mb-12 text-lg animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                I'm a passionate software developer with a love for creating digital experiences that are both beautiful and functional. My journey in web development began back in 2015 when I decided to try creating a custom website.
+                I'm a creative developer focused on building smooth, interactive, and visually appealing digital experiences. My passion is turning ideas into reality with modern web technologies.
               </p>
             </div>
             
