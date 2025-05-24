@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Trigger redeploy
+
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
@@ -61,7 +63,7 @@ const Hero = () => {
               Matthew Innes
             </h1>
             
-            {/* Updated hero subtitle for a more engaging introduction */}
+			{ /* Updated hero subtitle for a more engaging introduction */	}
             <div className="mb-20 animate-fade-in-up h-24 md:h-28" style={{ animationDelay: '0.2s' }}>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-lightestSlate leading-relaxed">
                 I craft <span className="text-gradient-teal inline-block" style={{ lineHeight: 1.5, paddingBottom: '10px' }}>{displayText}</span>
