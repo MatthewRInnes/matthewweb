@@ -25,6 +25,7 @@ export default defineConfig({
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'cross-origin',
+      'Content-Type': 'application/javascript',
     },
   },
   // Enable React plugin for JSX support

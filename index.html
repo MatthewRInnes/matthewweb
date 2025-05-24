@@ -50,6 +50,9 @@
     <link rel="alternate icon" type="image/png" href="/assets/images/mattLogo.png" />
     <meta name="theme-color" content="#0EA5E9" />
 
+    <!-- Preload main assets -->
+    <link rel="modulepreload" href="/src/main.tsx" as="script" type="module" crossorigin="anonymous" />
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -74,6 +77,6 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" crossorigin="anonymous"></script>
   </body>
 </html>
