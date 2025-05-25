@@ -32,7 +32,7 @@ const Services = () => {
     'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // Mobile Development
     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Cloud Solutions
     'https://images.unsplash.com/photo-1503676382389-4809596d5290', // Security
-    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Performance Optimisation
+    'https://images.unsplash.com/photo-1506784983877-45594efa4cbe', // Performance Optimisation (NEW: valid image)
     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Brand Strategy
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308', // Social Media Packs
     'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Content Creation
