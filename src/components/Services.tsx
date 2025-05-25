@@ -23,6 +23,34 @@ const Services = () => {
   // Create an array of refs for each card
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Array of unique fallback images for each service (placed at top level for access in all functions)
+  const defaultImages = [
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6', // Web Development
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Database Design
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308', // UI/UX Design
+    'https://images.unsplash.com/photo-1506744038136-46273834b3fb', // Backend Development
+    'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // Mobile Development
+    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Cloud Solutions
+    'https://images.unsplash.com/photo-1503676382389-4809596d5290', // Security
+    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Performance Optimisation
+    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Brand Strategy
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308', // Social Media Packs
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Content Creation
+    'https://images.unsplash.com/photo-1506744038136-46273834b3fb', // Email Marketing
+    'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // AI & ML
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6', // Chatbot Development
+    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Automation Services
+    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // API Integration
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308', // E-commerce Solutions
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Penetration Testing
+    'https://images.unsplash.com/photo-1506744038136-46273834b3fb', // GDPR Compliance
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6', // Motion Graphics
+    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Information Graphics
+    'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // Audio Branding
+    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Training & Workshops
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Accessibility Services
+  ];
+
   useEffect(() => {
     // Set up a single IntersectionObserver for all cards
     const observer = new window.IntersectionObserver(
@@ -215,78 +243,41 @@ const Services = () => {
 
   // Effect hook for fetching service-related images
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const imagePromises = services.map(async (service, index) => {
-          try {
-            const response = await fetch(
-              `https://api.pexels.com/v1/search?query=${encodeURIComponent(service.query)}&per_page=1`,
-              {
-                headers: {
-                  'Authorization': import.meta.env.VITE_PEXELS_API_KEY || 'Kop4YidFnPTJp3Tr92KXh6uz0wcWctYxqQ7df3FjUgsjrzaup7nLyWaI'
-                }
-              }
-            );
-            
-            if (!response.ok) {
-              console.warn(`Failed to fetch image for ${service.title}: ${response.status}`);
-              return defaultImages[index % defaultImages.length];
+    async function fetchImages() {
+      const fetchedImages = await Promise.all(services.map(async (service, idx) => {
+        try {
+          const response = await fetch(
+            `https://api.pexels.com/v1/search?query=${encodeURIComponent(service.query)}&per_page=1`,
+            {
+              headers: {
+                Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+              },
             }
-            
-            const data = await response.json();
-            if (!data.photos || data.photos.length === 0) {
-              console.warn(`No photos found for ${service.title}`);
-              return defaultImages[index % defaultImages.length];
-            }
-            
-            return data.photos[0]?.src.medium || defaultImages[index % defaultImages.length];
-          } catch (error) {
-            console.error(`Error fetching image for ${service.title}:`, error);
-            return defaultImages[index % defaultImages.length];
+          );
+          if (!response.ok) {
+            console.warn(`Pexels API error for ${service.title}: ${response.status}`);
+            return defaultImages[idx % defaultImages.length];
           }
-        });
-
-        const fetchedImages = await Promise.all(imagePromises);
-        setImages(fetchedImages);
-      } catch (error) {
-        console.error('Error in image fetching process:', error);
-        // Use different default images for each service
-        setImages(services.map((_, index) => defaultImages[index % defaultImages.length]));
-      } finally {
-        setLoading(false);
-      }
-    };
+          const data = await response.json();
+          if (data.photos && data.photos.length > 0) {
+            return data.photos[0].src.medium;
+          } else {
+            // Warn if no image found for this service
+            console.warn(`No image found for service: ${service.title}`);
+            return defaultImages[idx % defaultImages.length];
+          }
+        } catch (error) {
+          // Warn if fetch fails
+          console.warn(`Error fetching image for ${service.title}:`, error);
+          return defaultImages[idx % defaultImages.length];
+        }
+      }));
+      setImages(fetchedImages);
+      setLoading(false);
+    }
 
     fetchImages();
   }, []);
-
-  // Fallback images for when API calls fail - each service gets a different image
-  const defaultImages = [
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Web Development
-    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Database Design
-    "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // UI/UX Design
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Backend Development
-    "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Mobile Development
-    "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Cloud Solutions
-    "https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Security
-    "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Performance Optimisation
-    "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Brand Strategy
-    "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Social Media
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Content Creation
-    "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Email Marketing
-    "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // AI & ML
-    "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Chatbot
-    "https://images.unsplash.com/photo-1581091226825-c6ae0ec0d519?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Automation
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // API Integration
-    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // E-commerce
-    "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Penetration Testing
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // GDPR
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Motion Graphics
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Information Graphics
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Audio Branding
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", // Training
-    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  // Accessibility
-  ];
 
   return (
     // Main services section container
