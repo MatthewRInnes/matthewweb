@@ -90,9 +90,13 @@ const Contact = () => {
             I'm currently looking for new opportunities. Whether you have a question or just want to ask advice, drop me a message and I will be sure to get back to you!
           </p>
         </div>
-        
         <div className="max-w-2xl mx-auto bg-white dark:bg-navy/40 p-8 rounded-lg border border-border dark:border-slate/20 shadow-lg">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {/* FormSubmit.co form for email forwarding via Cloudflare */}
+          <form
+            action="https://formsubmit.co/aideveloper@matthewweb.com"
+            method="POST"
+            className="space-y-6"
+          >
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground dark:text-lightSlate mb-2">
@@ -101,8 +105,6 @@ const Contact = () => {
                 <Input
                   id="name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
                   className="w-full bg-background/50 dark:bg-navy/60 border-border dark:border-slate/30 focus:border-teal text-foreground dark:text-lightSlate"
                   placeholder="Your name"
@@ -116,8 +118,6 @@ const Contact = () => {
                   id="email"
                   name="email"
                   type="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   className="w-full bg-background/50 dark:bg-navy/60 border-border dark:border-slate/30 focus:border-teal text-foreground dark:text-lightSlate"
                   placeholder="Your email"
@@ -131,25 +131,23 @@ const Contact = () => {
               <Textarea
                 id="message"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 required
                 className="w-full min-h-[150px] bg-background/50 dark:bg-navy/60 border-border dark:border-slate/30 focus:border-teal text-foreground dark:text-lightSlate"
                 placeholder="Your message"
               />
             </div>
+            {/* Hidden input to disable captcha */}
+            <input type="hidden" name="_captcha" value="false" />
             <div className="flex justify-center">
               <Button 
                 type="submit"
                 className="bg-teal hover:bg-teal/90 text-navy px-8 py-6 text-lg flex items-center"
-                disabled={isSubmitting}
               >
-                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                <span>Send Message</span>
                 <Send className="ml-2 h-5 w-5" />
               </Button>
             </div>
           </form>
-          
           <div className="mt-16 flex justify-center">
             <div className="flex space-x-6">
               {socialLinks.map((link, index) => (
