@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 const navItems = [
   { name: 'Home', href: '#top' },
   { name: 'About', href: '#about' },
+  { name: 'Services', href: '#services' },
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
   { name: 'Testimonials', href: '#testimonials' },
@@ -78,7 +79,7 @@ const Navbar = () => {
               <li key={index}>
                 <a 
                   href={item.href}
-                  className="text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal transition-colors duration-700 relative group flex items-center"
+                  className="text-xs xl:text-sm text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal transition-colors duration-700 relative group flex items-center"
                 >
                   {item.name === 'Home' && <Home size={16} className="mr-2" />}
                   {item.name}
@@ -151,7 +152,7 @@ const Navbar = () => {
                 <li key={index}>
                   <a
                     href={item.href}
-                    className="text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal text-2xl transition-colors duration-700 relative group flex items-center justify-center"
+                    className="text-lg text-foreground dark:text-lightSlate hover:text-gradient-teal dark:hover:text-gradient-teal transition-colors duration-700 relative group flex items-center justify-center"
                     onClick={toggleMenu}
                   >
                     {item.name === 'Home' && <Home size={18} className="mr-2" />}

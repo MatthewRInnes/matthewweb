@@ -308,16 +308,14 @@ const Services = () => {
           {services.map((service, index) => {
             // Always use a fallback image if images[index] is undefined
             const imageUrl = images[index] || defaultImages[index] || 'https://via.placeholder.com/300x200?text=Service';
+            const isMissing = !images[index] && !loading;
             return (
-              // Attach ref and data-index for observer
               <div
                 key={index}
                 ref={el => cardRefs.current[index] = el}
                 data-index={index}
-                // Animate in if visible
                 className={`bg-white dark:bg-navy/80 rounded-lg overflow-hidden shadow-lg border border-border dark:border-slate/20 transition-all duration-700 ${visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               >
-                {/* Card image container with fade-in effect for smoother appearance */}
                 <div className="relative h-48">
                   {loading ? (
                     <div className="w-full h-full bg-secondary dark:bg-navy/60 animate-pulse"></div>
@@ -328,12 +326,17 @@ const Services = () => {
                       className="w-full h-full object-cover"
                     />
                   )}
+                  {/* Show a warning if the image is missing */}
+                  {isMissing && !loading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                      <span className="text-red-500 font-bold bg-white/80 rounded px-2 py-1">Image missing</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     {service.icon}
                   </div>
                 </div>
-                {/* Card content container */}
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-foreground dark:text-lightestSlate mb-2">
                     {service.title}
