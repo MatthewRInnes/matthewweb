@@ -39,13 +39,13 @@ const Services = () => {
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb', // Email Marketing
     'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // AI & ML
     'https://images.unsplash.com/photo-1461749280684-dccba630e2f6', // Chatbot Development
-    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Automation Services
+    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d', // Automation Services (NEW: gears/automation)
     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // API Integration
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308', // E-commerce Solutions
     'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Penetration Testing
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb', // GDPR Compliance
     'https://images.unsplash.com/photo-1461749280684-dccba630e2f6', // Motion Graphics
-    'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99', // Information Graphics
+    'https://images.unsplash.com/photo-1503676382389-4809596d5290', // Information Graphics (NEW: data visualisation)
     'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2', // Audio Branding
     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', // Training & Workshops
     'https://images.unsplash.com/photo-1519389950473-47ba0277781c', // Accessibility Services
