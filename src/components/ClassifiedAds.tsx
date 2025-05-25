@@ -36,11 +36,11 @@ const ClassifiedAds = () => {
             Choose from our range of advertising spaces to promote your business worldwide.
           </p>
           <a 
-            href="mailto:matthewinnes42@gmail.com" 
+            href="mailto:aideveloper@matthewweb.com" 
             className="inline-flex items-center text-teal hover:text-teal/80 transition-colors"
           >
             <Mail className="mr-2" size={20} />
-            Contact me for more information at matthewinnes42@gmail.com
+            Contact me for more information at aideveloper@matthewweb.com
           </a>
         </div>
 
